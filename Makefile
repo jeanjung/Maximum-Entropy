@@ -1,6 +1,8 @@
+# Makefile for maximum entropy summary
 
+all: maxent
 
-all: maxent.tex maxent.bib
+maxent: maxent.tex maxent.bib
 	rubber -d maxent
 
 clean:
