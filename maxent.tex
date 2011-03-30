@@ -1,8 +1,15 @@
 \documentclass[a4wide]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{stmaryrd}
+\usepackage{latexsym}
 
 \title{Maximum Entropy -- Lessons learnt}
 \date{\today}
 \author{Jean Christoph Jung}
+
+\newcommand{\infers}{\mathrel|\joinrel\sim}
+\newcommand{\lsem}{[\![}
+\newcommand{\rsem}{]\!]}
 
 \begin{document}
 \maketitle
@@ -16,6 +23,41 @@ is a very common notion in non-deductive (inductive) reasoning systems: The resu
 inference procedure depend heavily of the chosen representation formalism, \mbox{i.e.}, the
 way the knowledge is written down. In particular representation dependence is one of the
 major points of criticism of the principle of maximum entropy. 
+
+The following setting is considered: 
+\begin{itemize}
+  \item some state space $X$ 
+  \item Given a knowledge base $KB$, $\lsem KB\rsem_X$ is the set of probability distributions on $X$
+    that is allowed by $KB$.
+  \item \emph{entailment}: $KB\models\theta$ if $\lsem KB\rsem\subseteq \lsem\theta\rsem$.
+  \item $X$-inference procedure is a monotonic decreasing function $I_X$. We write $KB\infers_I\theta$ if 
+    $I_X(\lsem KB\rsem )\subseteq \lsem\theta\rsem$
+  \item \emph{embedding}: function $f:X\rightarrow Y$ that maps one state space to another with the only
+    condition that $f$ is a homomorphism with respect to conjunction and negation.
+  \item $f$ induces $f^*$: $f^*(\mu)=\{\nu\in\Delta_Y\mid \nu(f(S))=\mu(S)\mathrm{\ for\ all\ } S\subseteq X\}$
+  \item $I$ is \emph{invariant} under $f$ if for all $KB$ and $\theta$, we have $KB\infers_I\theta$ iff
+    $f^*(KB)\infers_I f^*(\theta)$.
+\end{itemize}
+
+Inuitively, embeddings are representation shifts. Obviously, not every embedding is
+an appropriate representation shift, \mbox{e.g.}, $f(p)=f(q)$ gives us that $f(p\wedge\neg q)$
+becomes unsatisfiable although $p\wedge\neg q$ was satisfiable. To prevent such situations,
+an embedding is called \emph{faithful} if $f(S)\neq\emptyset$ for all $S\subseteq X$.
+In the following they restrict their attention to faithful embeddings and call an inference relation
+$\infers_I$ \emph{representation independent} if it is invariant under all faithful embeddings. 
+
+
+They show that representation independence definied in this way is quite a strong notion. First, not
+many inference procedures have this property. Second, we can not add further restriction without
+getting only not interesting inference procedures or none at all. (The two examples in 
+the paper are ``kind of'' \emph{irrelevant information} and \emph{minimal default independence}.)
+
+
+
+
+\section{From Statistical Information to Beliefs \cite{BacchusGHK96}}
+
+
 
 
 \bibliographystyle{plain}
